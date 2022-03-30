@@ -15,6 +15,7 @@ namespace ToDoAPI.API.Controllers
     {
         ToDoEntities db = new ToDoEntities();
 
+        //GET api/categories
         public IHttpActionResult GetCategories()
         {
             List<CategoryViewModel> cats = db.Categories.Select(c => new CategoryViewModel()
@@ -31,6 +32,7 @@ namespace ToDoAPI.API.Controllers
             
         }//end of GetCategories
 
+        //GET api/categories/id
         public IHttpActionResult GetCategory(int id)
         {
             CategoryViewModel cat = db.Categories.Where(c => c.CategoryId == id).Select(c => new CategoryViewModel()
@@ -44,13 +46,13 @@ namespace ToDoAPI.API.Controllers
             {
                 return NotFound();
             }
-            return Ok();
+            return Ok(cat);
 
 
 
         }
 
-
+        //POST api/categories (HTTPPost)
         public IHttpActionResult PostCategory(CategoryViewModel cat)
         {
             if (!ModelState.IsValid)
@@ -68,7 +70,7 @@ namespace ToDoAPI.API.Controllers
             return Ok();
         }// end of PostCategory
 
-        //POST
+        //PUT api/categories (HTTPPut)
         public IHttpActionResult PutCategory(CategoryViewModel cat)
         {
             if (!ModelState.IsValid)
@@ -91,6 +93,8 @@ namespace ToDoAPI.API.Controllers
             }
         }//end put
 
+
+        //DELETE api/categories (HTTPDelete)
         public IHttpActionResult DeleteCategory(int id)
         {
             Category cat = db.Categories.Where(c => c.CategoryId == id).FirstOrDefault();

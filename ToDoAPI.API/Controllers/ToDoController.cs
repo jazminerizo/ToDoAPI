@@ -13,7 +13,9 @@ namespace ToDoAPI.API.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ToDoController : ApiController
     {
+        //connection to database
         ToDoEntities db = new ToDoEntities();
+
         //GET - /api/todo
         public IHttpActionResult GetToDo()
         {
@@ -97,7 +99,7 @@ namespace ToDoAPI.API.Controllers
                 return BadRequest("Invalid Data");
             }
 
-            //Fet the resource from the db so we can modify it
+            //Get the resource from the db so we can modify it
             TodoItem existingTodo = db.TodoItems.Where(t => t.TodoId == todo.TodoId).FirstOrDefault();
 
             //modify the resource
@@ -107,8 +109,6 @@ namespace ToDoAPI.API.Controllers
                 existingTodo.Action = todo.Action;
                 existingTodo.Done = todo.Done;
                 existingTodo.CategoryId = todo.CategoryId;
-                
-                //
                 db.SaveChanges();
                 return Ok();
             }
@@ -120,6 +120,7 @@ namespace ToDoAPI.API.Controllers
 
 
         }//end of put
+
          //DELETE - api/Resources/id (HTTPDelete)
         public IHttpActionResult DeleteTodo(int id)
         {
@@ -135,7 +136,7 @@ namespace ToDoAPI.API.Controllers
             {
                 return NotFound();
             }
-        }
+        }//end of DELETE
 
         protected override void Dispose(bool disposing)
         {
