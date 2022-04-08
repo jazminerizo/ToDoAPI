@@ -52,7 +52,7 @@ namespace ToDoAPI.API.Controllers
 
         }
 
-        //POST api/categories (HTTPPost)
+        //POST api/categories (HTTPPost) (create or add)
         public IHttpActionResult PostCategory(CategoryViewModel cat)
         {
             if (!ModelState.IsValid)
@@ -61,16 +61,18 @@ namespace ToDoAPI.API.Controllers
             }
 
             db.Categories.Add(new Category()
-            {
+            //Category newCat = new Category()
+            {   
                 Name = cat.Name,
                 Description = cat.Description
             });
 
+            //db.Categories.Add(newCat);
             db.SaveChanges();
             return Ok();
         }// end of PostCategory
 
-        //PUT api/categories (HTTPPut)
+        //PUT api/categories (HTTPPut) (edit)
         public IHttpActionResult PutCategory(CategoryViewModel cat)
         {
             if (!ModelState.IsValid)
